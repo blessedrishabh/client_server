@@ -35,15 +35,18 @@ class UserInterface(CTk):
         position_x = int(20)
         position_y = int(680)
         self.textbox.place(x=position_x, y=position_y)
-
+        self.encryptmenu = customtkinter.CTkOptionMenu(self, values=["AES", "DES3", "Caesar"])
+        self.encryptmenu.place(x=20, y=position_y+50)
+        self.encryptmenu.set("Encryption Algorithm")
         self.send_button = customtkinter.CTkButton(self, text="Send", width=80, height=40, command=partial(self.send_message, client))
         self.send_button.place(x=580, y=position_y)
     def send_message(self, client):
         """Send a message to the server."""
         message = self.textbox.get()
+        encryption_algorithm = self.encryptmenu.get()
         if message:
             # Create a backend client instance
-            client.send_request(message)
+            client.send_request(message, encryption_algorithm)
             self.textbox.delete(0, 'end')
 
 def main():
