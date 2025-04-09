@@ -2,6 +2,7 @@ import socket
 import sys
 import os
 import json
+from datetime import datetime
 
 # Add the parent directory to the Python path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -27,27 +28,39 @@ class BackendClient:
             raise Exception("Socket is not connected. Call connect() first.")
         if encryption_algorithm == "AES":
             cipher = encryption_script.AesEncryption()
+            start_time = datetime.now()
             encrypted_request = cipher.encrypt(request)
+            end_time = datetime.now()
+            encrypted_time = end_time - start_time
             data = {
                 "ciphertext": encrypted_request.hex(),  # Convert bytes to hex for transmission
                 "iv": cipher.iv.hex(),  # Send IV for decryption
-                "algorithm": "AES"
+                "algorithm": "AES",
+                "time_for_encryption": encrypted_time.total_seconds(),  # Send the time taken for encryption
             }
             self.socket.sendall(json.dumps(data).encode())
         elif encryption_algorithm == "Caesar":
             cipher = encryption_script.CeasarCipher(5)
+            start_time = datetime.now()
             encrypted_request = cipher.encrypt(request)
+            end_time = datetime.now()
+            encrypted_time = end_time - start_time
             data = {
                 "ciphertext": encrypted_request,
-                "algorithm": "Caesar"
+                "algorithm": "Caesar",
+                "time_for_encryption": encrypted_time.total_seconds()  # Send the time taken for encryption
             }
             self.socket.sendall(json.dumps(data).encode())
         elif encryption_algorithm == "DES3":
             cipher = encryption_script.Des3Encryption(b'12345678abcdefgh')  # Pre-shared key
+            start_time = datetime.now()
             encrypted_request = cipher.encrypt(request)
+            end_time = datetime.now()
+            encrypted_time = end_time - start_time
             data = {
                 "ciphertext": encrypted_request.hex(),  # Convert bytes to hex for transmission
-                "algorithm": "DES3"
+                "algorithm": "DES3",
+                "time_for_encryption": encrypted_time.total_seconds(),  # Send the time taken for encryption
             }
             self.socket.sendall(json.dumps(data).encode())
 

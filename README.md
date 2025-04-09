@@ -75,20 +75,142 @@ CN_PROJECT/ │ ├── client/ │ ├── user_interface_client.py # Clien
 
 ---
 
+# Encrypted Client-Server Communication Project
+
+This project demonstrates a secure client-server communication system using Python. The system implements multiple encryption algorithms (AES, DES3, and Caesar cipher) and measures encryption/decryption performance. The applications feature graphical user interfaces built with the `customtkinter` library.
+
+## Features
+
+1. **Encryption Support**:
+   - AES (Advanced Encryption Standard)
+   - Triple DES (DES3)
+   - Caesar Cipher
+   - Performance measurements for encryption/decryption operations
+
+2. **Client-Side GUI**:
+   - Text entry field for message input
+   - Encryption algorithm selection dropdown
+   - Send button for encrypted message transmission
+   - Modern and user-friendly interface
+
+3. **Server-Side GUI**:
+   - Real-time display of received encrypted messages
+   - Automatic decryption and display of plaintext
+   - Performance metrics display (encryption/decryption times)
+   - Scrollable message history
+
+4. **Security Features**:
+   - Secure message encryption using industry-standard algorithms
+   - IV (Initialization Vector) generation for AES
+   - Pre-shared keys for symmetric encryption
+   - Secure message transmission using JSON serialization
+
+## Technical Implementation
+
+### 1. **Encryption Algorithms**
+```python
+- AES: CBC mode with 128-bit key and random IV
+- DES3: ECB mode with 16/24-byte key
+- Caesar: Classic substitution cipher with configurable shift
+```
+
+### 2. **Performance Measurement**
+- Encryption time measurement on client side
+- Decryption time measurement on server side
+- Total processing time calculation
+- Results displayed in nanoseconds
+
+### 3. **Data Transmission**
+- JSON-formatted encrypted messages
+- Hexadecimal encoding for binary data
+- Metadata inclusion (algorithm type, IV, timing data)
+
+## Project Structure
+
+```
+CN_PROJECT/
+│
+├── client/
+│   ├── user_interface_client.py    # Client GUI implementation
+│   └── backend_client.py           # Client encryption and networking
+│
+├── server/
+│   ├── user_interface_server.py    # Server GUI implementation
+│   └── backend_server.py           # Server decryption and request handling
+│
+├── encryption_script.py            # Encryption algorithm implementations
+└── README.md                       # Project documentation
+```
+
 ## Requirements
 
 - Python 3.8 or higher
-- `customtkinter` library
+- Required packages:
+  ```bash
+  pip install customtkinter
+  pip install pycryptodome
+  ```
 
-To install `customtkinter`, run:
-```bash
-pip install customtkinter
+## How to Run
 
-How to Run
-1. Start the Server
-Navigate to the server directory and run:
-python user_interface_client.py
+1. **Start the Server**:
+   ```bash
+   cd server
+   python user_interface_server.py
+   ```
 
-2. Start the Client
-Navigate to the client directory and run:
-python user_interface_client.py
+2. **Start the Client**:
+   ```bash
+   cd client
+   python user_interface_client.py
+   ```
+
+## Usage Instructions
+
+1. Launch the server application
+2. Start the client application
+3. In the client window:
+   - Type your message in the text field
+   - Select an encryption algorithm (AES, DES3, or Caesar)
+   - Click "Send" to transmit the encrypted message
+4. The server window will display:
+   - The received encrypted message
+   - The decrypted plaintext
+   - Performance metrics for the encryption/decryption process
+
+## Security Considerations
+
+- Keys are pre-shared between client and server
+- AES and DES3 use secure key sizes
+- IV is randomly generated for each AES encryption
+- Caesar cipher is included for educational purposes only
+
+## Performance Analysis
+
+The system measures and displays:
+- Encryption time on the client side
+- Decryption time on the server side
+- Total processing time for the complete operation
+- All timing measurements are in nanoseconds for precision
+
+## Future Improvements
+
+- Implementation of asymmetric encryption
+- Key exchange protocols
+- Support for file encryption
+- Enhanced security features
+- Additional encryption algorithms
+- Performance optimization
+
+## Author
+
+Created as part of a Computer Networks course project, demonstrating practical implementation of:
+- Network programming
+- Cryptography
+- GUI development
+- Performance measurement
+- Client-server architecture
+
+---
+
+**Note**: This project is for educational purposes and demonstrates basic principles of encrypted communication. For production use, additional security measures would be necessary.
