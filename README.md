@@ -1,4 +1,3 @@
-encryption
 # Client-Server Communication Project
 
 This project demonstrates a simple client-server communication system using Python. The client and server applications are built with a graphical user interface (GUI) using the `customtkinter` library. The server listens for incoming connections and processes requests from the client, while the client sends messages to the server and displays responses.
